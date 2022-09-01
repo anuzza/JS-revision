@@ -1,36 +1,17 @@
-const todos = [
-  {
-    text: "Order cat food",
-    completed: true,
-  },
-  {
-    text: "Clean Kitchen",
-    completed: false,
-  },
-  {
-    text: "buy food",
-    completed: true,
-  },
-  {
-    text: "Do work",
-    completed: true,
-  },
-  {
-    text: "exercise",
-    completed: false,
-  },
-];
-//setup a contain for  todos
-// setup fitlers (searchText) and wire up a new filter input to change it
-// create a renderTodos function to render and rerender the latest filtered data
-
-//you have 2 todos left (p element)
-//add a p for each todo above (use text value)
+let todos = [];
+//delete dummy data
+// read and parse the data when the app starts up
+//stringy and write the data when the data is added
 
 const filters = {
   searchText: "",
   hideCompleted: false,
 };
+
+const todoJson = localStorage.getItem("todos");
+if (todoJson !== null) {
+  todos = JSON.parse(todoJson);
+}
 
 const renderTodos = (todos, filters) => {
   const filteredTodos = todos.filter((todo) => {
@@ -65,6 +46,7 @@ document.querySelector("#search").addEventListener("input", (e) => {
 document.querySelector("#add-form").addEventListener("submit", (e) => {
   e.preventDefault();
   todos.push({ text: e.target.elements.newTodo.value, completed: false });
+  localStorage.setItem("todos", JSON.stringify(todos));
   renderTodos(todos, filters);
   e.target.elements.newTodo.value = "";
 });
