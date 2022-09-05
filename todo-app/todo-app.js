@@ -1,4 +1,4 @@
-let todos = [];
+const todos = getSavedTodos();
 //delete dummy data
 // read and parse the data when the app starts up
 //stringy and write the data when the data is added
@@ -8,34 +8,6 @@ const filters = {
   hideCompleted: false,
 };
 
-const todoJson = localStorage.getItem("todos");
-if (todoJson !== null) {
-  todos = JSON.parse(todoJson);
-}
-
-const renderTodos = (todos, filters) => {
-  const filteredTodos = todos.filter((todo) => {
-    const searchTextMatch = todo.text
-      .toLowerCase()
-      .includes(filters.searchText.toLowerCase());
-    const hideCompletedMatch = !filters.hideCompleted || !todo.completed;
-    return searchTextMatch && hideCompletedMatch;
-  });
-
-  const incomplete = filteredTodos.filter((todo) => !todo.completed);
-
-  document.querySelector("#todos").innerHTML = "";
-
-  const leftTodo = document.createElement("h2");
-  leftTodo.textContent = `You have ${incomplete.length} todos left`;
-  document.querySelector("#todos").appendChild(leftTodo);
-
-  filteredTodos.forEach((todo) => {
-    const todop = document.createElement("p");
-    todop.textContent = todo.text;
-    document.querySelector("#todos").appendChild(todop);
-  });
-};
 renderTodos(todos, filters);
 
 document.querySelector("#search").addEventListener("input", (e) => {
@@ -46,7 +18,7 @@ document.querySelector("#search").addEventListener("input", (e) => {
 document.querySelector("#add-form").addEventListener("submit", (e) => {
   e.preventDefault();
   todos.push({ text: e.target.elements.newTodo.value, completed: false });
-  localStorage.setItem("todos", JSON.stringify(todos));
+  saveTodos(todos);
   renderTodos(todos, filters);
   e.target.elements.newTodo.value = "";
 });
