@@ -17,7 +17,11 @@ document.querySelector("#search").addEventListener("input", (e) => {
 
 document.querySelector("#add-form").addEventListener("submit", (e) => {
   e.preventDefault();
-  todos.push({ text: e.target.elements.newTodo.value, completed: false });
+  todos.push({
+    id: uuidv4(),
+    text: e.target.elements.newTodo.value,
+    completed: false,
+  });
   saveTodos(todos);
   renderTodos(todos, filters);
   e.target.elements.newTodo.value = "";
