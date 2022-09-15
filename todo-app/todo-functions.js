@@ -1,12 +1,20 @@
+"use strict";
+// const isPublic = true;
+// let data;
+// const processData = () => {
+//   data = "342343243";
+// };
+// processData();
+// console.log(data);
+
 //Fetch existing todos from localStorage
 const getSavedTodos = () => {
   const todoJson = localStorage.getItem("todos");
-  return todoJson ? JSON.parse(todoJson) : [];
-  // if (todoJson !== null) {
-  //   return JSON.parse(todoJson);
-  // } else {
-  //   return [];
-  // }
+  try {
+    return todoJson ? JSON.parse(todoJson) : [];
+  } catch (e) {
+    return [];
+  }
 };
 
 //Save todos to localStorage
