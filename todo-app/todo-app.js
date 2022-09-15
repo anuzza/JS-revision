@@ -1,4 +1,4 @@
-const todos = getSavedTodos();
+let todos = getSavedTodos();
 //delete dummy data
 // read and parse the data when the app starts up
 //stringy and write the data when the data is added

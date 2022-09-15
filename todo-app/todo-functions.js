@@ -14,6 +14,24 @@ const saveTodos = (todos) => {
   localStorage.setItem("todos", JSON.stringify(todos));
 };
 
+//remove todo by id
+const removeTodo = (id) => {
+  const todoIndex = todos.findIndex((todo) => todo.id === id);
+  if (todoIndex > -1) {
+    todos.splice(todoIndex, 1);
+  }
+  //   todos = todos.filter((todo) => todo.id !== id);
+};
+
+const toggleTodo = (id) => {
+  const todo = todos.find((todo) => {
+    return todo.id === id;
+  });
+  if (todo !== undefined) {
+    todo.completed = !todo.completed;
+  }
+};
+
 //Get the DOM elements for an individual note
 //generateTodoDOM
 const generateTodoDOM = (todo) => {
@@ -24,8 +42,16 @@ const generateTodoDOM = (todo) => {
   const chBox = document.createElement("input");
 
   chBox.setAttribute("type", "checkbox");
-  //chBox.type = "checkbox";
+  chBox.checked = todo.completed;
+
   todop.appendChild(chBox);
+  chBox.addEventListener("change", (e) => {
+    toggleTodo(todo.id);
+    saveTodos(todos);
+    renderTodos(todos, filters);
+  });
+
+  //chBox.type = "checkbox";
 
   //Setup and append a span
   const textEL = document.createElement("span");
@@ -37,6 +63,11 @@ const generateTodoDOM = (todo) => {
   const button = document.createElement("button");
   button.textContent = "x";
   todop.appendChild(button);
+  button.addEventListener("click", function () {
+    removeTodo(todo.id);
+    saveTodos(todos);
+    renderTodos(todos, filters);
+  });
 
   return todop;
 };
