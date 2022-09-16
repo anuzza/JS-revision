@@ -1,14 +1,13 @@
-//Pirmitive value: string, number, boolean, null, undefined
+const puzzleEl = document.querySelector("#puzzle");
+const guessEL = document.querySelector("#guesses");
+const game1 = new Hangman("Cat", 2);
 
-//Object: product-->Object.prototype->null
-//Array: myArray-->Array.prototype-->Object.prototype-->null
-//Function: myFunc-->Function.prototype-->Object.prototype-->null
-//String: myString->String.prototype-->Object.prototype-->null
-//Number: myNumber-->NUmber.prototype-->Object.prototype-->null
-//Boolean: myBoolean-->Boolean.prototype-->Object.prototype-->null
+puzzleEl.textContent = game1.getPuzzle();
+guessEL.textContent = game1.getStatusMsg();
 
-const product = "computer";
-console.log(product.split(""));
-
-const otherProduct = new String("Phone");
-console.log(otherProduct);
+window.addEventListener("keypress", function (e) {
+  const guess = String.fromCharCode(e.charCode);
+  game1.makeGuess(guess);
+  puzzleEl.textContent = game1.getPuzzle();
+  guessEL.textContent = game1.getStatusMsg();
+});
