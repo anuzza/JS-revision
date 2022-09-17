@@ -9,9 +9,22 @@ const filters = {
 
 renderNotes(notes, filters);
 
+// const createBtn = document.querySelector("#create-note");
+// createBtn.addEventListener("mouseover", (e) => {
+//   createBtn.style.cssText = `
+//     background-color: red;
+//     color: white;
+//     cursor: pointer;
+//     transform: rotate(-90deg);
+
+//     transition: transform ease-out 2s;
+
+//   `;
+// });
+
 document.querySelector("#create-note").addEventListener("click", function (e) {
   const id = uuidv4();
-  const timestamp = moment().valueof();
+  const timestamp = moment().valueOf();
 
   notes.push({
     id: id,

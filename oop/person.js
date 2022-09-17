@@ -9,9 +9,9 @@ class Person {
     this.likes = likes;
   }
   getBio() {
-    let bio = `${this.firstName} is ${this.age}.`;
+    let bio = `${this.firstName} is ${this.age}.  ${this.firstName} likes `;
     this.likes.forEach((like) => {
-      bio += ` ${this.firstName} likes ${like}.`;
+      bio += `${like}, `;
     });
     return bio;
   }
@@ -61,7 +61,5 @@ console.log(me.getBio());
 
 console.log(me.getYrsLeft());
 
-const person2 = new Student("Susan", "Subedi", 24);
-console.log(person2.getBio());
-person2.updateGrade(50);
+const person2 = new Person("Susan", "Subedi", 24, ["coding", "music", "cubes"]);
 console.log(person2.getBio());
