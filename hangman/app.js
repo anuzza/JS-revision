@@ -16,31 +16,18 @@ window.addEventListener("keypress", function (e) {
   guessEL.textContent = game1.getStatusMsg();
 });
 
-//Making an HTTP request
-const request = new XMLHttpRequest();
-request.addEventListener("readystatechange", (e) => {
-  if (e.target.readyState === 4 && e.target.status === 200) {
-    const data = JSON.parse(e.target.responseText);
-    console.log(data);
-  } else if (e.target.readyState === 4) {
-    console.log("error");
+getPuzzle("2", (error, puzzle) => {
+  if (error) {
+    console.log(`Error: ${error}`);
+  } else {
+    console.log(puzzle);
   }
 });
-request.open("GET", "https://puzzle.mead.io/puzzle?wordCount=3");
-request.send();
 
-const countryCode = "US";
-
-const req = new XMLHttpRequest();
-req.addEventListener("readystatechange", (e) => {
-  if (e.target.readyState === 4 && e.target.status === 200) {
-    const data = JSON.parse(e.target.responseText);
-    const country = data.find((count) => count.cca2 === countryCode);
+getCountry("US", (error, country) => {
+  if (error) {
+    console.log(`Error: ${error}`);
+  } else {
     console.log(country.name.common);
-  } else if (e.target.readyState === 4) {
-    console.log("unable to fetch data");
   }
 });
-
-req.open("GET", "https://restcountries.com/v3.1/all");
-req.send();
