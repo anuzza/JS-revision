@@ -11,19 +11,19 @@ const getPuzzle = async (wordCount) => {
   }
 };
 
-const getPuzzleOld = (wordCount) => {
-  return fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
-    .then((response) => {
-      if (response.status === 200) {
-        return response.json();
-      } else {
-        throw new Error("Unable to fetch puzzle");
-      }
-    })
-    .then((data) => {
-      return data.puzzle;
-    });
-};
+// const getPuzzleOld = (wordCount) => {
+//   return fetch(`http://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
+//     .then((response) => {
+//       if (response.status === 200) {
+//         return response.json();
+//       } else {
+//         throw new Error("Unable to fetch puzzle");
+//       }
+//     })
+//     .then((data) => {
+//       return data.puzzle;
+//     });
+// };
 
 const getCurrentCountry = async () => {
   const location = await getLocation();
