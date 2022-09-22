@@ -1,31 +1,66 @@
 //Callback
-const getDataCallback = (callback) => {
+const getDataCallback = (num, callback) => {
   setTimeout(() => {
-    callback("this is callback error", undefined);
+    if (typeof num === "number") {
+      callback(undefined, num * 2);
+    } else {
+      callback("Number must be provided");
+    }
   }, 2000);
 };
 
-getDataCallback((err, data) => {
+getDataCallback(2, (err, data) => {
   if (err) {
+    console.log(err);
   } else {
-    console.log(data);
+    getDataCallback(data, (err, data) => {
+      if (err) {
+        console.log("err");
+      } else {
+        console.log(data);
+      }
+    });
   }
 });
 
 //promise
 
-const myPromise = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    // resolve("this is the promise data");
-    reject("this is my promise error");
-  }, 2000);
-});
+const getDataPromise = (num) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      typeof num === "number"
+        ? resolve(num * 2)
+        : reject("Number must be provided");
+    }, 2000);
+  });
+};
 
-myPromise.then(
+getDataPromise(2).then(
   (data) => {
-    console.log(data);
+    getDataPromise(data).then(
+      (data) => {
+        console.log(data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   },
   (err) => {
     console.log(err);
   }
 );
+
+getDataPromise("10")
+  .then((data) => {
+    return getDataPromise(data);
+  })
+  .then((data) => {
+    return getDataPromise(data);
+  })
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });

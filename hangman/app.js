@@ -16,18 +16,20 @@ window.addEventListener("keypress", function (e) {
   guessEL.textContent = game1.getStatusMsg();
 });
 
-getPuzzle("2", (error, puzzle) => {
-  if (error) {
-    console.log(`Error: ${error}`);
-  } else {
+getPuzzle("2").then(
+  (puzzle) => {
     console.log(puzzle);
+  },
+  (err) => {
+    console.log(`error: ${err}`);
   }
-});
+);
 
-getCountry("US", (error, country) => {
-  if (error) {
-    console.log(`Error: ${error}`);
-  } else {
+getCountry("MX").then(
+  (country) => {
     console.log(country.name.common);
+  },
+  (err) => {
+    console.log(`Error: ${err}`);
   }
-});
+);

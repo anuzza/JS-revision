@@ -59,7 +59,6 @@ class Hangman {
     if (this.status !== "playing") {
       return;
     }
-
     if (isUnique) {
       this.guessedLetters.push(guess);
     }
